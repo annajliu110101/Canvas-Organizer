@@ -5,6 +5,7 @@ export type Category = {
   color: string; 
   enabled: boolean
 };
+
 export type Item = {
   id: string; source: "canvas"|"gradescope"|"virtual";
   courseID?: string;
@@ -14,6 +15,7 @@ export type Item = {
   url?: string; submittedAt?: number|null; completed?: boolean; notes?: string;
   originId?: string;
 };
+
 export type Calendar_Preferences = {
   viewMode: "original"|"filtered";
   categories: Category[];
