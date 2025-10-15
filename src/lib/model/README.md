@@ -1,21 +1,13 @@
-# Purpose
+# `src/lib/model/`
 
-Defines core domain types that describe everything the extension manipulates — items, courses, and user categories.
+Model definitions capture the canonical shapes for data manipulated by the extension.
 
-# Contents
+## Files
+- `course.ts` – Defines `CourseBrief` and related types describing Canvas hosts, course identifiers, and enrollment metadata.
+- `item.ts` – Declares the `Item` discriminated union covering assignments, events, to-dos, and virtual tasks created by the user.
+- `index.ts` – Barrel file exporting the public model surface for ergonomic imports.
 
-item.ts: canonical Item union (assignment, quiz, todo, event) built on a shared Base type with optional extra fields for user customization.
-
-course.ts: defines CourseBrief and Host (Canvas domain identifiers).
-
-category.ts: optional per-user categories with icons and colors.
-
-index.ts: barrel file exporting all models.
-
-# Features
-
-- Stable, API-independent data structures.
-
-- Optional extra property to store custom metadata per category.
-
-- Narrower discriminated unions for reliable rendering and merging.
+## Usage Notes
+- These types should remain stable; other modules depend on them for type safety and serialization.
+- When extending the models (e.g., new item variant), document the change here and update adapters/core logic accordingly.
+- Avoid runtime logic in this folder—keep it limited to type declarations and small helper constants.

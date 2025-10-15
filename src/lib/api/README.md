@@ -1,23 +1,14 @@
-# Purpose
+# `src/lib/api/`
 
-Low-level HTTP clients for external systems — Canvas and Gradescope.
+This folder contains low-level clients and DTO definitions for the external services the extension interacts with.
 
-# Contents
+## Files
+- `canvas.client.ts` – Wraps `fetch` calls to Canvas' REST API, including pagination helpers for `/api/v1` endpoints.
+- `canvas.types.ts` – TypeScript interfaces describing the subset of Canvas API responses used by the extension.
+- `gradescope.client.ts` – Handles fetching assignment data from Gradescope, either via available APIs or lightweight scraping.
+- `gradescope.types.ts` – DTO definitions matching the structure returned by `gradescope.client.ts`.
 
-canvas.client.ts: handles pagination and REST calls to /api/v1/... endpoints.
-
-canvas.types.ts: defines API response types (e.g., CanvasCourse, CanvasCalendarEvent).
-
-gradescope.client.ts: lightweight scraper or API fetcher for Gradescope (depending on availability).
-
-gradescope.types.ts: DTO definitions matching Gradescope’s structure.
-
-# Features
-
-- Simple fetch(..., { credentials: "include" }) for authenticated calls.
-
-- Pagination helper (nextLink) and query utilities.
-
-- Strong TypeScript typing for JSON responses.
-
-- Decoupled design—can swap in new LMS or service later.
+## Best Practices
+- Keep these clients free of business logic; return the raw response data and let adapters handle normalization.
+- Include graceful error handling and rate-limit awareness, as Canvas APIs can throttle aggressive clients.
+- Share authentication context with the browser (cookies, tokens) by enabling `credentials: 'include'` on requests.
