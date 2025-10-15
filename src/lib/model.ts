@@ -11,6 +11,8 @@ export type Item = {
   courseID?: string;
   title: string;
   categoryId: string;
+  pointsPossible?: number;
+  pointsEarned?: number;
   dueAt?: number; startAt?: number; endAt?: number;
   url?: string; submittedAt?: number|null; completed?: boolean; notes?: string;
   originId?: string;
