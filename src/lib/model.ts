@@ -9,67 +9,53 @@ export type Category = {
   enabled: boolean
 };
 
-export type Base = {
-  id: string;
+type BaseItem = {
+  id: string; courseID?: number; originId?: string; categoryId: string; 
   source: Source;
-  originId?: string;
-  courseID?: number;
-  title: string;
-  categoryId: string;
-  dueAt?: ISO; 
-  startAt?: ISO; 
-  endAt?: ISO;
-  url?: string; 
-  submittedAt?: ISO|null; 
-  completed?: boolean; 
-  notes?: string;
-  details?: string;
+  title: string; url?: string;
+  notes?: string; details?: string;
   location?: string;
+  reccurence?: string; 
+  completed?: boolean; 
   extra?: Record<string, string | number | boolean | null>;
 };
 
-export type Assignment = Base & {
-  kind: "assignment";
+type TimedItem = BaseItem & {
+  startAt?: ISO; endAt?: ISO;
+};
+
+type GradedItem = BaseItem & {
+  dueAt?: ISO; submittedAt?: ISO|null; 
   pointsPossible?: number;
   pointsEarned?: number|null;
   late?: boolean;
-  excused?: boolean;
-  group?: string;
   handinLink?: string;
 };
 
-export type Todo = Base & {
+type Assignment = GradedItem & {
+  kind: "assignment";
+  excused?: boolean;
+  group?: string;
+};
+
+type Todo = BaseItem & {
   kind: "todo";
+  dueAt?: ISO;
   checklist?: { id: string; text: string; done: boolean }[];
 };
 
 
-export type Quiz = Base & {
+type Quiz = GradedItem & {
   kind: "quiz";
   timeLimitMin?: number;
-  proctored?: boolean;
-  pointsPossible?: number;
-  pointsEarned?: number|null;
 };
 
-export type CalendarEvent = Base & {
+type CalendarEvent = TimedItem & {
   kind: "event";
-  location?: string;
+  virtual?: boolean;
   allDay?: boolean;
-  rrule?: string;             // optional RRULE string for recurrence (virtual-only)
 };
 
-export type Item = {
-  id: string; source: "canvas"|"gradescope"|"virtual";
-  courseID?: number;
-  title: string;
-  categoryId: string;
-  pointsPossible?: number;
-  pointsEarned?: number;
-  dueAt?: number; startAt?: number; endAt?: number;
-  url?: string; submittedAt?: number|null; completed?: boolean; notes?: string;
-  originId?: string;
-};
 
 export type Calendar_Preferences = {
   viewMode: "original"|"filtered";
@@ -82,3 +68,5 @@ export const DEFAULT_CATEGORIES: Category[] = [
   { id:"todo", label:"To-Do", icon:"✅", color:"#16a34a", enabled:true },
   { id:"quizzes", label:"Quizzes", icon:"📝", color:"#f59e0b", enabled:true },
 ];
+
+export type Item = CalendarEvent | Quiz | Todo | Assignment;
