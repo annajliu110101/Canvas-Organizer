@@ -69,4 +69,5 @@ export const DEFAULT_CATEGORIES: Category[] = [
   { id:"quizzes", label:"Quizzes", icon:"📝", color:"#f59e0b", enabled:true },
 ];
 
+export type ItemTypes = GradedItem | TimedItem;
 export type Item = CalendarEvent | Quiz | Todo | Assignment;
