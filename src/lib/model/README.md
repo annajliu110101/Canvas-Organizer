@@ -1,8 +1,8 @@
-#Purpose
+# Purpose
 
 Defines core domain types that describe everything the extension manipulates — items, courses, and user categories.
 
-#Contents
+# Contents
 
 item.ts: canonical Item union (assignment, quiz, todo, event) built on a shared Base type with optional extra fields for user customization.
 
@@ -12,7 +12,7 @@ category.ts: optional per-user categories with icons and colors.
 
 index.ts: barrel file exporting all models.
 
-#Features
+# Features
 
 - Stable, API-independent data structures.
 
